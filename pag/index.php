@@ -1,9 +1,7 @@
 <?php
-
     USE Dom\Mysql;
     require "./db/funciones.php";
     $autor = obtener_user();
-
 ?>
 
 <!DOCTYPE html>
@@ -19,13 +17,11 @@
         <thead>
             <tr>
                 <td>Nombres</td>
-                
                 <td>Apellidos</td>
             </tr>
             <tr>
                 <?php while($autores = mysqli_fetch_assoc($autor)){ ?>
-    </tr>
-    
+            </tr>
     <tr>
         <td><?php echo $autores['nombre'] ?></td>
         <td><?php echo $autores['apellido'] ?></td>
@@ -34,7 +30,6 @@
         <?php   
         }
         ?>
-        
     </tr>
 </thead>
 </table>
