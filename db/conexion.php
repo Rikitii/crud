@@ -3,7 +3,7 @@
 $hostname="localhost";
 $username="root";
 $password="Sena2026*";
-$database="biblioteca_v1.1";
+$database="biblioteca";
 
 $conex = mysqli_connect($hostname,$username,$password,$database);
 

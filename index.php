@@ -1,6 +1,6 @@
 <?php
     USE Dom\Mysql;
-    require "./db/funciones.php";
+    require "db/funciones.php";
     $autor = obtener_user();
 ?>
 

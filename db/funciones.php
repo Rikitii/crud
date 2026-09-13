@@ -27,5 +27,33 @@ function obtener_user() {
     }
 
     // obtener_user();
+
+    if (isset($_POST['agregar'])) {
+        $cedula = mysqli_real_escape_string($conex,$_POST['cedula']);
+        $name = mysqli_real_escape_string($conex,$_POST['name']);
+        $last_name = mysqli_real_escape_string($conex,$_POST['last_name']);
+        $email = mysqli_real_escape_string($conex, filter_var($_POST['email']));
+        $password = mysqli_real_escape_string($conex,$_POST['password']);
+        $c_password = mysqli_real_escape_string($conex,$_POST['c_password']);
+        $phone = mysqli_real_escape_string($conex,$_POST['phone']);
+
+    if (!cedula) {
+        $errores[] = "Ingrese el numero de cedula";
+    }if (!name) {
+        $errores[] = "Ingrese un nombre de usuario";
+    }if (!last_name) {
+        $errores[] = "Ingrese un apellido";
+    }if (!email) {
+        $erorres[] = "Ingrese un email";
+    }if (!password) {
+        $erorres[] = "Ingrese una contraseña";
+    }if (!c_password) {
+        $errores[] = "Ingrese la confirmacion de la contraseña";
+    }if (!phone) {
+        $errores[] = "Ingrese un telefono";
+    }
+
+
+    }
 }
 
