@@ -4,7 +4,7 @@ require '../db/proteger.php';
 require '../db/funciones.php';
 // require '../pag/CerrarSesion.php';
 
-$usuarios = obtener_usuarios();
+$usuarios = obtener_user();
 ?>
 
 <!DOCTYPE html>
@@ -20,8 +20,8 @@ $usuarios = obtener_usuarios();
 <body>
     <h1>conexión con MySqli</h1>
     <table border="2">
-        <div class="contenedorB">
-            <a class="boton" href="../pag/users.php">Crear Usuario</a>
+        <div>
+            <a href="../pag/users.php">Crear Usuario</a>
         </div>
         <thead>
             <tr>
@@ -45,8 +45,8 @@ $usuarios = obtener_usuarios();
                     <td colspan="3"><?php echo $user['contraseña'] ?></td>
                     <td colspan="3"><?php echo $user['email'] ?></td>
                     <td colspan="3"><?php echo $user['telefono'] ?></td>
-                    <td><a class="boton" href="../users/update.php?id=<?php echo $user['id']; ?>">actualizar</a></td>
-                    <td><a class="boton" href="../users/delete.php?id=<?php echo $user['id']; ?>">eliminar</a></td>
+                    <td><a href="../users/update.php?id=<?php echo $user['id']; ?>">actualizar</a></td>
+                    <td><a href="../users/delete.php?id=<?php echo $user['id']; ?>">eliminar</a></td>
                 </tr>
 
             <?php } ?>
@@ -54,8 +54,8 @@ $usuarios = obtener_usuarios();
         </tbody>
     </table>
 
-    <div class="contenedorB">
-        <a class="boton" href="../pag/CerrarSesion.php">Cerrar Sesión</a>
+    <div>
+        <a href="../pag/CerrarSesion.php">Cerrar Sesión</a>
     </div>
 
 </body>

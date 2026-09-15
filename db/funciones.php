@@ -134,7 +134,7 @@ function iniciar_seccion() {
         $errores[] = "Ingrese una contraseña";
     }
 
-    if (!$erorres) {
+    if (!$errores) {
         require 'conexion.php';
 
         $query = "SELECT * FROM usuarios WHERE cedula = '$cedula'";
@@ -153,21 +153,18 @@ function iniciar_seccion() {
                 $_SESSION['usuario'] = $usuario;
             }
         }
-        return $erorres;
     }
-
-    function  procesar_usuario()
-{
+        return $errores;
+}
+    function  procesar_usuario(){
     $nombre = $_POST['nombre'];
 
-    agregar_usuario($nombre);
+    create_user($nombre);
 
     header('Location: index.php');
     exit;
 }
 
-
-}
 
 
     

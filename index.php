@@ -1,7 +1,19 @@
 <?php
+    session_start();
     USE Dom\Mysql;
     require "db/funciones.php";
-    $autor = obtener_user();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $errores = iniciar_seccion();
+        if (!$errores) {
+            header('Location: form/FormUsuarios.php');
+            exit;
+        }
+
+        foreach ($errores as $error) {
+            echo $error . "<br>";
+        }
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,29 +21,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Conexion a mysqli</title>
 </head>
 <body>
     <h1>Conexion a mysqli</h1>
-    <table>
-        <thead>
-            <tr>
-                <td>Nombres</td>
-                <td>Apellidos</td>
-            </tr>
-            <tr>
-                <?php while($autores = mysqli_fetch_assoc($autor)){ ?>
-            </tr>
-    <tr>
-        <td><?php echo $autores['nombre'] ?></td>
-        <td><?php echo $autores['apellido'] ?></td>
-    </tr>
-    <tr>
-        <?php   
-        }
-        ?>
-    </tr>
-</thead>
+    <form  method="post">
+        <fieldset>
+            <h3>inicia sección </h3>
+
+            <div>
+                <div>
+                    <input type="string" name="cedula" placeholder="Documento">
+                </div>
+
+                <div class="campos">
+                    <input type="password" name="contraseña" placeholder="Contraseña">
+                </div>
+            </div>
+        <div>
+            <input class="" type="submit" value="enviar" />
+        </div>
+    </fieldset>
+    </div>
+</form>
 </table>
 </body>
 </html>

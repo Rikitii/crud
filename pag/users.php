@@ -1,5 +1,19 @@
 <?php
-require_once "../db/funciones.php";
+
+// require '../db/proteger.php';
+
+require '../db/funciones.php';
+
+if (isset($_POST['guardar'])) {
+    $errores = create_user();
+
+if ($errores) {
+    foreach ($errores as $error) {
+        echo "<p>" . $error . "</p>";
+    }
+}
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -16,9 +30,11 @@ require_once "../db/funciones.php";
                 <tr>
                     <th>Cedula</th>
                     <th>Nombre</th>
-                    <th>apellido</th>
+                    <th>Segundo Nombre</th>
                     <th>Email</th>
                     <th>Telefono</th>
+                    <th>Contraseña</th>
+                    <th>Confirmar Contraseña</th>
                     <th>Opciones</th>
                 </tr>
             </thead>
