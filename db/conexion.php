@@ -2,7 +2,7 @@
 
 $hostname="localhost";
 $username="root";
-$password="Sena2026*";
+$password="1234";
 $database="biblioteca";
 
 $conex = mysqli_connect($hostname,$username,$password,$database);
@@ -11,9 +11,9 @@ $conex = mysqli_connect($hostname,$username,$password,$database);
 // var_dump ($conex);
 // echo "</pre>";
 
-// if ($conex) {
-//     echo "Conexion exitosa";
-// }
+if ($conex) {
+    echo "Conexion exitosa";
+}
 
 // if (!$conex) {
 //     echo "Hubo un error";

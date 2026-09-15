@@ -1,5 +1,7 @@
 <?php
 
+require 'conexion.php';
+
 function obtener_user() {
     try {
         //1.importar conexion
@@ -7,7 +9,6 @@ function obtener_user() {
 
         //2.consultar db
         $sql = "SELECT*FROM autor";
-        $sql = "SELECT nombre, apellido FROM autor";
 
         //3.ejecutar la consulta con msqli
         $query=mysqli_query($conex, $sql);
@@ -18,7 +19,7 @@ function obtener_user() {
         // echo "</pre>";
 
         //5.cierre de conexion(opcional)
-        // $cierre=mysqli_close($conex);
+        // $cierre = mysqli_close($conex);
         // var_dump($cierre);
 
         return $query;
@@ -28,32 +29,147 @@ function obtener_user() {
 
     // obtener_user();
 
-    if (isset($_POST['agregar'])) {
-        $cedula = mysqli_real_escape_string($conex,$_POST['cedula']);
-        $name = mysqli_real_escape_string($conex,$_POST['name']);
-        $last_name = mysqli_real_escape_string($conex,$_POST['last_name']);
-        $email = mysqli_real_escape_string($conex, filter_var($_POST['email']));
-        $password = mysqli_real_escape_string($conex,$_POST['password']);
-        $c_password = mysqli_real_escape_string($conex,$_POST['c_password']);
-        $phone = mysqli_real_escape_string($conex,$_POST['phone']);
+    //function creacion_user() {
+        //try{
+            //1. Importar la conexion a la DB
+            //require 'conexion.php';
 
-    if (!cedula) {
-        $errores[] = "Ingrese el numero de cedula";
-    }if (!name) {
-        $errores[] = "Ingrese un nombre de usuario";
-    }if (!last_name) {
-        $errores[] = "Ingrese un apellido";
-    }if (!email) {
-        $erorres[] = "Ingrese un email";
-    }if (!password) {
-        $erorres[] = "Ingrese una contraseña";
-    }if (!c_password) {
-        $errores[] = "Ingrese la confirmacion de la contraseña";
-    }if (!phone) {
-        $errores[] = "Ingrese un telefono";
-    }
+            //2. Consultar la DB
+            //$sql = "INSERT INTO $autor (nombre,apellido) VALUES (?,?)";
 
+            //3.  Ejecutar la consulta con MYSQLI
+            //$query = mysqli_query($conex,$sql);
 
-    }
+            //4. Acceder a los resultado
+            // var_dump(mysqli_fetch_assoc($query2));
+
+            //5. Cierre de conexion
+            // $cierre = mysqli_close($conex);
+            // var_dump($cierre);
+
+        //return $query;
+    //     }catch(\throwable $th) {
+    //         var_dump($th);
+    //     }
+        
+    // }
 }
+
+function create_user(){
+    require 'conexion.php';
+    $errores = [];
+    $cedula = "";
+    $name = "";
+    $s_nombre = "";
+    $password = "";
+    $telefono = "";
+
+    if (isset($_POST['agregar'])) {
+    $cedula = mysqli_real_escape_string($conex,$_POST['cedula']);
+    $nombre = mysqli_real_escape_string($conex,$_POST['nombre']);
+    $s_nombre = mysqli_real_escape_string($conex,$_POST['s_nombre']);
+    $email = mysqli_real_escape_string($conex, filter_var($_POST['email']));
+    $contraseña = mysqli_real_escape_string($conex,$_POST['contraseña']);
+    $c_contraseña = mysqli_real_escape_string($conex,$_POST['c_contraseña']);
+    $telefono = mysqli_real_escape_string($conex,$_POST['telefono']);
+    }
+
+    if (!$cedula) {
+        $errores[] = "Ingrese el numero de cedula";
+    }if (!ctype_digit($cedula)) {
+        $errores[] = "El documento debe contener numeros";
+    }if (strlen(!$cedula) < 7 && strlen($cedula) >10) {
+        $errores[] = "El documento debe tener entre 7 y 10 digitos";
+    }if (!$name) {
+        $errores[] = "Ingrese un nombre de usuario";
+    }if (!ctype_alpha(str_replace(' ', '', $nombre))) {
+        $errores[] = "El nombre solo debe contener letras";
+    }if (!$s_nombre) {
+        $errores[] = "Ingrese un apellido";
+    }if (!ctype_alpha(str_replace(' ', '', $s_nombre))) {
+        $errores[] = "El segundo nombre solo debe contener letras";
+    }if (!$email) {
+        $erorres[] = "Ingrese un email";
+    }if (!$contraseña) {
+        $erorres[] = "Ingrese una contraseña";
+    } else {
+        if ($contraseña != $c_contraseña) {
+            $errores[] = "Las contraseñas no coinciden";
+        } else {
+            $contraseña = password_hash($contraseña, PASSWORD_BCRYPT);
+        }
+
+    } if (!$telefono) {
+        $errores[] = "Ingrese un telefono";
+    } if (strlen($telefono) != 10) {
+            $erorres[] = "El numero de telefono debe tener 10 digitos";
+    } if (!ctype_digit($telefono)) {
+        $errores[] = "El numero de telefono solo debe contener digitos";
+    }
+
+    $query = "SELECT * FROM usuario WHERE cedula = '" . $cedula . "';";
+    $resultado = mysqli_query($conex, $query);
+
+    if (!$errores) {
+    $query = "INSERT INTO usuarios (documento, nombre, s_nombre, email, contrasena, telefono) VALUES ('" . $cedula . "', '" . $nombre . "', '" . $s_nombre . "', '" . $email . "', '" . $contraseña . "', '" . $telefono . "')";
+    $resultado = mysqli_query($conex, $query);
+
+    if ($resultado) {
+        echo "Usuario agregado con éxito";
+    } else {
+        echo "Error al agregar usuario";
+    }
+    }
+    return $errores;
+}
+
+function iniciar_seccion() {
+    $errores = [];
+    $cedula = $_POST['cedula'];
+    $contraseña = $_POST['contraseña'];
+
+    if (!$cedula) {
+        $errores[] = "Ingrese el numero de cedula";
+    } if (!$contraseña) {
+        $errores[] = "Ingrese una contraseña";
+    }
+
+    if (!$erorres) {
+        require 'conexion.php';
+
+        $query = "SELECT * FROM usuarios WHERE cedula = '$cedula'";
+        $resultado = mysqli_query($conex, $query);
+
+        if ($resultado->num_rows == 0) {
+            $errores[] = "El usuario no existe";
+        } else {
+            //si existe se guardara los datos en $usuario
+            $usuario = mysqli_fetch_assoc($resultado);
+
+            //se compara la contraseña que puso el usuario con la que está en la base de datos 
+            if (!password_verify($contraseña, $usuario['contraseña'])) {
+                $errores[] = "Contraseña incorrecta";
+            } else {
+                $_SESSION['usuario'] = $usuario;
+            }
+        }
+        return $erorres;
+    }
+
+    function  procesar_usuario()
+{
+    $nombre = $_POST['nombre'];
+
+    agregar_usuario($nombre);
+
+    header('Location: index.php');
+    exit;
+}
+
+
+}
+
+
+    
+
 
