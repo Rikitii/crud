@@ -1,21 +1,3 @@
-<?php
-    session_start();
-    //USE Dom\Mysql;
-    require "db/funciones.php";
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $errores = iniciar_seccion();
-        if (!$errores) {
-            header('Location: form/formUsuarios.php');
-            exit;
-        }
-
-        foreach ($errores as $error) {
-            echo $error . "<br>";
-        }
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,12 +11,28 @@
         <fieldset>
         <h3>inicia sección </h3>
         <div>
-            <div>
+            <!-- <div>
                 <a href="./users/create.php">Crear Usuario</a>
-            </div>
+            </div> -->
 
             <div>
                 <input type="string" name="cedula" placeholder="Documento">
+            </div>
+
+            <div>
+                <input type="string" name="nombre" placeholder="Nombre">
+            </div>
+
+            <div>
+                <input type="string" name="s_nombre" placeholder="Segundo Nombre">
+            </div>
+
+            <div>
+                <input type="tel" name="telefono" placeholder="Telefono">
+            </div>
+
+            <div>
+                <input type="email" name="email" placeholder="Correo">
             </div>
 
             <div>

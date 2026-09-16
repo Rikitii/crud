@@ -8,7 +8,7 @@ function obtener_user() {
         require "conexion.php";
 
         //2.consultar db
-        $sql = "SELECT*FROM autor";
+        $sql = "SELECT*FROM crud";
 
         //3.ejecutar la consulta con msqli
         $query=mysqli_query($conex, $sql);
@@ -61,7 +61,7 @@ function create_user(){
     $cedula = "";
     $name = "";
     $s_nombre = "";
-    $password = "";
+    $contraseña = "";
     $telefono = "";
 
     if (isset($_POST['agregar'])) {
@@ -107,11 +107,11 @@ function create_user(){
         $errores[] = "El numero de telefono solo debe contener digitos";
     }
 
-    $query = "SELECT * FROM usuario WHERE cedula = '" . $cedula . "';";
+    $query = "SELECT * FROM crud WHERE cedula = '" . $cedula . "';";
     $resultado = mysqli_query($conex, $query);
 
     if (!$errores) {
-    $query = "INSERT INTO usuarios (documento, nombre, s_nombre, email, contrasena, telefono) VALUES ('" . $cedula . "', '" . $nombre . "', '" . $s_nombre . "', '" . $email . "', '" . $contraseña . "', '" . $telefono . "')";
+    $query = "INSERT INTO crud (nombre,s_nombre,cedula,email,contraseña,telefono) VALUES ('" . $nombre . "', '" . $s_nombre . "', '" . $cedula . "', '" . $email . "', '" . $contraseña . "', '" . $telefono . "')";
     $resultado = mysqli_query($conex, $query);
 
     if ($resultado) {
@@ -124,6 +124,9 @@ function create_user(){
 }
 
 function iniciar_seccion() {
+
+    require 'conexion.php';
+
     $errores = [];
     $cedula = $_POST['cedula'];
     $contraseña = $_POST['contraseña'];
@@ -135,9 +138,9 @@ function iniciar_seccion() {
     }
 
     if (!$errores) {
-        require 'conexion.php';
+        // require 'conexion.php';
 
-        $query = "SELECT * FROM usuarios WHERE cedula = '$cedula'";
+        $query = "SELECT * FROM crud WHERE cedula = '$cedula'";
         $resultado = mysqli_query($conex, $query);
 
         if ($resultado->num_rows == 0) {
@@ -150,7 +153,7 @@ function iniciar_seccion() {
             if (!password_verify($contraseña, $usuario['contraseña'])) {
                 $errores[] = "Contraseña incorrecta";
             } else {
-                $_SESSION['usuario'] = $usuario;
+                $_SESSION['crud'] = $crud;
             }
         }
     }
