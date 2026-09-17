@@ -1,63 +1,69 @@
 <?php
 
-require '../db/proteger.php';
 require '../db/funciones.php';
-// require '../pag/CerrarSesion.php';
+// require '../';
 
-$usuarios = obtener_user();
+if (isset($_POST['boton'])) {
+    $errores = create_user();
+    if ($errores) {
+        foreach ($errores as $error) {
+            echo "<p> " . $error . "</p>";
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css" />
     <title>Document</title>
 </head>
-
 <body>
-    <h1>conexión con MySqli</h1>
-    <table border="2">
+<form method="post">
+    <fieldset>
+        <h3>Creacion Usuario</h3>
         <div>
-            <a href="../pag/users.php">Crear Usuario</a>
+            <div>
+                <input type="text" name="nombre" placeholder="Nombre">
+            </div>
+
+            <div>
+                <input type="text" name="s_nombre" placeholder="Segundo Nombre">
+            </div>
+
+            <div>
+                <input type="number" name="cedula" placeholder="Documento">
+            </div>
+
+            <div>
+                <input type="tel" name="telefono" placeholder="Telefono">
+            </div>
+
+            <div>
+                <input type="string" name="email" placeholder="Correo">
+            </div>
+
+            <div>
+                <input type="password" name="contraseña" placeholder="Contraseña">
+            </div>
+
+            <div>
+                <input type="password" name="c_contraseña" placeholder="Confirmar contraseña">
+            </div>
         </div>
-        <thead>
-            <tr>
-                <th colspan="3">Nombres</th>
-                <th colspan="3">Segundo Nombre</th>
-                <th colspan="3">Documento</th>
-                <th colspan="3">contraseña</th>
-                <th colspan="3">email</th>
-                <th colspan="3">teléfono</th>
-                <th colspan="3">opciones</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <?php while ($user = mysqli_fetch_assoc($usuarios)) { ?>
-
-                <tr>
-                    <td colspan="3"><?php echo $user['nombre'] ?></td>
-                    <td colspan="3"><?php echo $user['s_nombre'] ?></td>
-                    <td colspan="3"><?php echo $user['cedula'] ?></td>
-                    <td colspan="3"><?php echo $user['contraseña'] ?></td>
-                    <td colspan="3"><?php echo $user['email'] ?></td>
-                    <td colspan="3"><?php echo $user['telefono'] ?></td>
-                    <td><a href="../users/update.php?id=<?php echo $user['id']; ?>">actualizar</a></td>
-                    <td><a href="../users/delete.php?id=<?php echo $user['id']; ?>">eliminar</a></td>
-                </tr>
-
-            <?php } ?>
-
-        </tbody>
-    </table>
 
     <div>
-        <a href="../pag/CerrarSesion.php">Cerrar Sesión</a>
+        <input type="submit" name="boton" value="Continuar">
     </div>
 
-</body>
+    </fieldset>
 
+    <div>
+        <a href="../pag/users.php">Volver atras</a>    
+    </div>
+</form>
+</body>
 </html>

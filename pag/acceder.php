@@ -11,10 +11,6 @@
         <fieldset>
         <h3>inicia sección </h3>
         <div>
-            <!-- <div>
-                <a href="./users/create.php">Crear Usuario</a>
-            </div> -->
-
             <div>
                 <input type="string" name="cedula" placeholder="Documento">
             </div>

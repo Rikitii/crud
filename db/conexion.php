@@ -15,7 +15,7 @@ $conex = mysqli_connect($hostname,$username,$password,$database);
 //     echo "Conexion exitosa";
 // }
 
-// if (!$conex) {
-//     echo "Hubo un error";
-//     exit;
-// }
+if (!$conex) {
+    echo "Hubo un error";
+    exit;
+}
