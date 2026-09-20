@@ -39,7 +39,7 @@
 
         </div>
         <div>
-            <input type="submit" value="enviar" />
+            <input type="submit" value="enviar" name="session"/>
         </div>
 
         <div>

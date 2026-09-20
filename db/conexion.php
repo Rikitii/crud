@@ -1,11 +1,11 @@
 <?php
 
-$hostname="localhost";
-$username="root";
-$password="1234";
-$database="crud";
+$hostname = "localhost";
+$username = "root";
+$password = "1234";
+$database = "crud";
 
-$conex = mysqli_connect($hostname,$username,$password,$database);
+$conex = mysqli_connect($hostname, $username, $password, $database);
 
 // echo "<pre>";
 // var_dump ($conex);

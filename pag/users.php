@@ -47,7 +47,6 @@ $usuario = obtener_user();
             <?php
             while ($user = mysqli_fetch_assoc($usuario)) {
              ?>
-
             <tr>
                <td><?php echo $user['nombre'] ?></td>
                <td><?php echo $user['s_nombre'] ?></td>

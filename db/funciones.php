@@ -2,7 +2,9 @@
 
 require 'conexion.php';
 
-function obtener_user() {
+
+function obtener_user()
+{
     try {
         //1.importar conexion
         require "conexion.php";
@@ -11,7 +13,7 @@ function obtener_user() {
         $sql = "SELECT * FROM crud;";
 
         //3.ejecutar la consulta con msqli
-        $query=mysqli_query($conex, $sql);
+        $query = mysqli_query($conex, $sql);
 
         //4.acceder a los resultados
         // echo "<pre>";
@@ -30,32 +32,33 @@ function obtener_user() {
     // obtener_user();
 
     //function creacion_user() {
-        //try{
-            //1. Importar la conexion a la DB
-            //require 'conexion.php';
+    //try{
+    //1. Importar la conexion a la DB
+    //require 'conexion.php';
 
-            //2. Consultar la DB
-            //$sql = "INSERT INTO $autor (nombre,apellido) VALUES (?,?)";
+    //2. Consultar la DB
+    //$sql = "INSERT INTO $autor (nombre,apellido) VALUES (?,?)";
 
-            //3.  Ejecutar la consulta con MYSQLI
-            //$query = mysqli_query($conex,$sql);
+    //3.  Ejecutar la consulta con MYSQLI
+    //$query = mysqli_query($conex,$sql);
 
-            //4. Acceder a los resultado
-            // var_dump(mysqli_fetch_assoc($query2));
+    //4. Acceder a los resultado
+    // var_dump(mysqli_fetch_assoc($query2));
 
-            //5. Cierre de conexion
-            // $cierre = mysqli_close($conex);
-            // var_dump($cierre);
+    //5. Cierre de conexion
+    // $cierre = mysqli_close($conex);
+    // var_dump($cierre);
 
-        //return $query;
+    //return $query;
     //     }catch(\throwable $th) {
     //         var_dump($th);
     //     }
-        
+
     // }
 }
 
-function create_user(){
+function create_user()
+{
     require 'conexion.php';
     $errores = [];
     $cedula = "";
@@ -65,71 +68,80 @@ function create_user(){
     $contraseña = "";
     $telefono = "";
 
-    if (isset($_POST['boton'])) {
-    $cedula = mysqli_real_escape_string($conex,$_POST['cedula']);
-    $nombre = mysqli_real_escape_string($conex,$_POST['nombre']);
-    $s_nombre = mysqli_real_escape_string($conex,$_POST['s_nombre']);
-    $email = mysqli_real_escape_string($conex, filter_var($_POST['email']));
-    $contraseña = mysqli_real_escape_string($conex,$_POST['contraseña']);
-    $c_contraseña = mysqli_real_escape_string($conex,$_POST['c_contraseña']);
-    $telefono = mysqli_real_escape_string($conex,$_POST['telefono']);
+    if (isset($_POST['usuarios'])) {
+        $cedula = mysqli_real_escape_string($conex, $_POST['cedula']);
+        $nombre = mysqli_real_escape_string($conex, $_POST['nombre']);
+        $s_nombre = mysqli_real_escape_string($conex, $_POST['s_nombre']);
+        $email = mysqli_real_escape_string($conex, filter_var($_POST['email']));
+        $contraseña = mysqli_real_escape_string($conex, $_POST['contraseña']);
+        $c_contraseña = mysqli_real_escape_string($conex, $_POST['c_contraseña']);
+        $telefono = mysqli_real_escape_string($conex, $_POST['telefono']);
     }
 
     if (!$cedula) {
         $errores[] = "Ingrese el numero de cedula";
-    }if (!ctype_digit($cedula)) {
+    }
+    if (!ctype_digit($cedula)) {
         $errores[] = "El documento debe contener numeros";
-    }if (strlen(!$cedula) < 7 && strlen($cedula) >10) {
-        $errores[] = "El documento debe tener entre 7 y 10 digitos";
-    }if (!$nombre) {
+    }
+    if (!$nombre) {
         $errores[] = "Ingrese un nombre de usuario";
-    }if (!ctype_alpha(str_replace(' ', '', $nombre))) {
+    }
+    if (!ctype_alpha(str_replace(' ', '', $nombre))) {
         $errores[] = "El nombre solo debe contener letras";
-    }if (!$s_nombre) {
+    }
+    if (!$s_nombre) {
         $errores[] = "Ingrese un segundo nombre";
-    }if (!ctype_alpha(str_replace(' ', '', $s_nombre))) {
+    }
+    if (!ctype_alpha(str_replace(' ', '', $s_nombre))) {
         $errores[] = "El segundo nombre solo debe contener letras";
-    }if (!$email) {
+    }
+    if (!$email) {
         $erorres[] = "Ingrese un email";
-    }if (!$contraseña) {
-        $erorres[] = "Ingrese una contraseña";
-    } else {
-        if ($contraseña != $c_contraseña) {
-            $errores[] = "Las contraseñas no coinciden";
-        } else {
-            $contraseña = password_hash($contraseña, PASSWORD_BCRYPT);
-        }
+    }
+    if (!$contraseña) {
+        $errores[] = "Ingrese contraseña";
+    } //else {
+    //     if ($contraseña != $c_contraseña) {
+    //         $errores[] = "Las contraseñas no coinciden";
+    //     } else {
+    //         $contraseña = password_hash($contraseña, PASSWORD_BCRYPT);
+    //     }
+    // }
 
-    } if (!$telefono) {
+    if (!$telefono) {
         $errores[] = "Ingrese un telefono";
-    } if (strlen($telefono) != 10) {
-            $erorres[] = "El numero de telefono debe tener 10 digitos";
-    } if (!ctype_digit($telefono)) {
+    }
+    if (strlen($telefono) != 10) {
+        $erorres[] = "El numero de telefono debe tener 10 digitos";
+    }
+    if (!ctype_digit($telefono)) {
         $errores[] = "El numero de telefono solo debe contener digitos";
     }
 
-    $query = "SELECT * FROM crud WHERE cedula = '" . $cedula . "';";
+    $query = "SELECT * FROM crud WHERE cedula = '$cedula';";
     $resultado = mysqli_query($conex, $query);
 
     if ($resultado->num_rows) {
         $errores[] = "Usuario ya existente";
     }
 
-if (!$errores) {
-    $query = "INSERT INTO crud (nombre,s_nombre,cedula,email,contraseña,telefono) VALUES ('" . $nombre . "', '" . $s_nombre . "', '" . $cedula . "', '" . $email . "', '" . $contraseña . "', '" . $telefono . "')";
-    $resultado = mysqli_query($conex, $query);
+    if (!$errores) {
+        $query = "INSERT INTO crud (nombre,s_nombre,cedula,email,contraseña,telefono) VALUES ('$nombre', '$s_nombre', '$cedula', '$email', '$contraseña', '$telefono');";
+        $resultado = mysqli_query($conex, $query);
 
 
-    if ($resultado) {
-        echo "Usuario agregado con éxito";
-    } else {
-        echo "Error al agregar usuario";
-    }
+        if ($resultado) {
+            echo "Usuario agregado con éxito";
+        } else {
+            echo "Error al agregar usuario";
+        }
     }
     return $errores;
 }
 
-function iniciar_seccion() {
+function iniciar_seccion()
+{
 
     require 'conexion.php';
 
@@ -139,43 +151,27 @@ function iniciar_seccion() {
 
     if (!$cedula) {
         $errores[] = "Ingrese el numero de cedula";
-    } if (!$contraseña) {
+    }
+    if (!$contraseña) {
         $errores[] = "Ingrese una contraseña";
     }
 
     if (!$errores) {
-
-        $query = "SELECT * FROM crud WHERE cedula = '$cedula'";
+        $query = "SELECT * FROM crud WHERE cedula = '$cedula';";
         $resultado = mysqli_query($conex, $query);
+        var_dump($resultado);
+        $usuario = mysqli_fetch_assoc($resultado);
 
-        if ($resultado->num_rows == 0) {
-            $errores[] = "El usuario no existe";
+        if (!$usuario) {
+            $errores[] = "La cedula no esta registrada";
+        } else if (!password_verify($contraseña, $usuario['contraseña'])) {
+            $errores[] = "Contraseña incorrecta";
         } else {
-            //si existe se guardara los datos en $usuario   
-            $usuario = mysqli_fetch_assoc($resultado);
-
-            //se compara la contraseña que puso el usuario con la que está en la base de datos 
-            if (!password_verify($contraseña, $usuario['contraseña'])) {
-                $errores[] = "Contraseña incorrecta";
-            } else {
-                $_SESSION['crud'] = $usuario;
-            }
+            session_start();
+            $_SESSION['crud'] = $usuario;
+            header('Location: index.php');
+            exit;
         }
     }
     return $errores;
 }
-
-function  procesar_usuario(){
-    $nombre = $_POST['nombre'];
-
-    create_user($nombre);
-
-    header('Location: index.php');
-    exit;
-}
-
-
-
-    
-
-
