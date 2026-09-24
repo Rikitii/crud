@@ -6,6 +6,7 @@ require '../db/funciones.php';
 
 // if (isset($_POST['guardar'])) {
 //     $errores = create_user();
+// }
 
 // if ($errores) {
 //     foreach ($errores as $error) {
@@ -20,17 +21,25 @@ $usuario = obtener_user();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Cuenta</title>
 </head>
+
 <body>
+
     <body>
         <table>
             <div>
-                <a href="../form/formUsuarios.php">Crear user</a>
+                <a href="../form/formUsuarios.php">Crear usuario</a>
             </div>
+
+            <div>
+                <a href="../index.php">Cerrar Sesion</a>
+            </div>
+
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -44,24 +53,26 @@ $usuario = obtener_user();
             </thead>
 
             <tbody>
-            <?php
-            while ($user = mysqli_fetch_assoc($usuario)) {
-             ?>
-            <tr>
-               <td><?php echo $user['nombre'] ?></td>
-               <td><?php echo $user['s_nombre'] ?></td>
-               <td><?php echo $user['cedula'] ?></td>
-               <td><?php echo $user['email'] ?></td>
-               <td><?php echo $user['contraseña'] ?></td>
-               <td><?php echo $user['telefono'] ?></td>
-               <td><a href="../includes/users/update.php?id=<?php echo $user['id']; ?>">Actualizar</a></td>
-               <td><a href="../includes/users/delete.php?id=<?php echo $user['id']; ?>">Eliminar</a></td> 
-            </tr>
-            <?php
-            }
-            ?>
+                <?php
+                while ($user = mysqli_fetch_assoc($usuario)) {
+                ?>
+                    <tr>
+                        <td><?php echo $user['nombre'] ?></td>
+                        <td><?php echo $user['s_nombre'] ?></td>
+                        <td><?php echo $user['cedula'] ?></td>
+                        <td><?php echo $user['email'] ?></td>
+                        <td><?php echo $user['contraseña'] ?></td>
+                        <td><?php echo $user['telefono'] ?></td>
+                        <td><a href="../includes/users/update.php?id=<?php echo $user['id']; ?>">Actualizar</a></td>
+                        <td><a href="../includes/users/delete.php?id=<?php echo $user['id']; ?>">Eliminar</a></td>
+                    </tr>
+                <?php
+                }
+                ?>
             </tbody>
-        <table>
-    </body>        
+            <table>
+    </body>
+
 </body>
+
 </html>

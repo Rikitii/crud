@@ -1,6 +1,6 @@
 <?php
 
-require '../db/funciones.php';
+require '../includes/users/create.php';
 // require '../';
 
 if (isset($_POST['usuarios'])) {
@@ -24,7 +24,7 @@ if (isset($_POST['usuarios'])) {
 </head>
 
 <body>
-    <form method="post">
+    <form method="POST">
         <fieldset>
             <h3>Creacion Usuario</h3>
             <div>
