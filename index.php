@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Conexion a mysqli</h1>
     <form method="post">
         <fieldset>
-            <h3>inicia sección </h3>
+            <h3>Inicia Sesion </h3>
             <div>
                 <div>
                     <input type="string" name="cedula" placeholder="Documento">
