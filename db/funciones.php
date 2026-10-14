@@ -2,6 +2,56 @@
 
 require 'conexion.php';
 
+function obtener_socios() {
+    try {
+        //1.importar conexion
+        require "conexion.php";
+
+        //2.consultar db
+        $sql = "SELECT * FROM socio;";
+
+        //3.ejecutar la consulta con msqli
+        $query = mysqli_query($conex, $sql);
+
+        return $query;
+    } catch (\Throwable $th) {
+        var_dump($th);
+    }
+}
+
+function obtener_salidas() {
+    try {
+        //1.importar conexion
+        require "conexion.php";
+
+        //2.consultar db
+        $sql = "SELECT * FROM salidas;";
+
+        //3.ejecutar la consulta con msqli
+        $query = mysqli_query($conex, $sql);
+
+        return $query;
+    } catch (\Throwable $th) {
+        var_dump($th);
+    }
+}
+
+function obtener_barco() {
+    try {
+        //1.importar conexion
+        require "conexion.php";
+
+        //2.consultar db
+        $sql = "SELECT * FROM barco;";
+
+        //3.ejecutar la consulta con msqli
+        $query = mysqli_query($conex, $sql);
+
+        return $query;
+    } catch (\Throwable $th) {
+        var_dump($th);
+    }
+}
 
 function obtener_user()
 {

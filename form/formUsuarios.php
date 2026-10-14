@@ -1,7 +1,6 @@
 <?php
 
-require '../includes/users/create.php';
-// require '../';
+require __DIR__ . '/../includes/usuarios/create.php';
 
 if (isset($_POST['usuarios'])) {
     $errores = create_user();
@@ -13,15 +12,6 @@ if (isset($_POST['usuarios'])) {
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 
 <body>
     <form method="POST">
@@ -64,9 +54,7 @@ if (isset($_POST['usuarios'])) {
         </fieldset>
 
         <div>
-            <a href="../pag/users.php">Volver atras</a>
+            <a href="../pag/usuarios.php">Volver atras</a>
         </div>
     </form>
 </body>
-
-</html>
