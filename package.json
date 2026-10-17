@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "crud",
   "version": "1.0.0",
   "main": "gulpfile.js",
@@ -21,4 +22,11 @@
   },
   "homepage": "https://github.com/Rikitii/crud#readme",
   "description": ""
+=======
+  "dependencies": {
+    "gulp": "^5.0.1",
+    "gulp-sass": "^6.0.1",
+    "sass": "^1.105.1"
+  }
+>>>>>>> f3c8c00a7a557c6182fecd93ebec7968b39346c6
 }
